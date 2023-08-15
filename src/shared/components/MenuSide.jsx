@@ -22,20 +22,19 @@ import SortOutlinedIcon from "@mui/icons-material/SortOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 
-
-const drawerWidth = 240;
+const drawerWidth = 225;
 
 const MenuModules = [
   {
-    icon: <LocalOfferOutlinedIcon />,
-    selectedIcon: <LocalOfferOutlinedIcon color="primary" />,
+    icon: <LocalOfferOutlinedIcon fontSize="small" />,
+    selectedIcon: <LocalOfferOutlinedIcon fontSize="small" color="primary" />,
     route: "",
     label: "Product",
     expanded: true,
     routes: [
       {
-        icon: <CategoryOutlinedIcon />,
-        selectedIcon: <CategoryOutlinedIcon color="primary" />,
+        icon: <CategoryOutlinedIcon fontSize="small" />,
+        selectedIcon: <CategoryOutlinedIcon fontSize="small" color="primary" />,
         route: "/Product",
         label: "Product",
         routes: [],
@@ -230,6 +229,8 @@ const ModuleList = ({ module, isDrawerOpen }) => {
   const selectedPage = useLocation().pathname;
   const navigate = useNavigate();
 
+  const theme = useTheme();
+
   const handleNavigate = (route) => {
     if (route !== "") {
       navigate(route);
@@ -289,27 +290,36 @@ const ModuleList = ({ module, isDrawerOpen }) => {
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              justifyContent: "space-between",
               width: "100%",
               borderRadius: "15px",
+              paddingTop: 0.5,
+              paddingBottom: 0.5,
             }}
             selected={module.route === selectedPage ? true : false}
-            color="#007EFB"
             onClick={() => {
               setOpenRoutes(!openRoutes);
               handleNavigate(module?.route ?? "");
             }}
           >
             <ListItemIcon>
-              {module.route === selectedPage
-                ? module.selectedIcon
-                : module.icon}
+              {module.expanded ? (
+                openRoutes ? (
+                  <ExpandLess fontSize="small" color="primary" />
+                ) : (
+                  <ExpandMore fontSize="small" color="primary" />
+                )
+              ) : module.route === selectedPage ? (
+                module.selectedIcon
+              ) : (
+                module.icon
+              )}
             </ListItemIcon>
             <ListItemText>
               {!isDrawerOpen ? (
                 ""
               ) : (
                 <Typography
+                  sx={{ fontSize: "10pt" }}
                   color={
                     module.route === selectedPage ? "primary" : "text.primary"
                   }
@@ -318,15 +328,6 @@ const ModuleList = ({ module, isDrawerOpen }) => {
                 </Typography>
               )}
             </ListItemText>
-            {module.expanded ? (
-              openRoutes ? (
-                <ExpandLess color="action" />
-              ) : (
-                <ExpandMore color="action" />
-              )
-            ) : (
-              ""
-            )}{" "}
           </ListItemButton>
           <Collapse
             in={openRoutes}
@@ -348,6 +349,14 @@ const ModuleList = ({ module, isDrawerOpen }) => {
                       width: "100%",
                       borderRadius: "15px",
                       paddingRight: 0,
+                      paddingTop: 0.5,
+                      paddingBottom: 0.5,
+                      border:
+                        route.route === selectedPage ? "1px solid" : "none",
+                      borderColor:
+                        route.route === selectedPage
+                          ? theme.palette.primary.main
+                          : "none",
                     }}
                     selected={route.route === selectedPage ? true : false}
                     onClick={() => handleNavigate(route?.route ?? "")}
@@ -359,6 +368,7 @@ const ModuleList = ({ module, isDrawerOpen }) => {
                     </ListItemIcon>
                     <ListItemText>
                       <Typography
+                        sx={{ fontSize: "10pt" }}
                         color={
                           route.route === selectedPage
                             ? "primary"

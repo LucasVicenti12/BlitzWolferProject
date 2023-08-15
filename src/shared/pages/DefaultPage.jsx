@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Box, useTheme } from "@mui/system";
 import MenuSide from "../components/MenuSide";
+import AppBarDefault from "../components/AppBarDefault";
 
 const DefaultPage = () => {
   const theme = useTheme();
@@ -12,6 +13,7 @@ const DefaultPage = () => {
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       <MenuSide />
       <Box sx={{ display: "grid", width: "100%" }}>
+        <AppBarDefault/>
         <Outlet />
       </Box>
     </Box>
