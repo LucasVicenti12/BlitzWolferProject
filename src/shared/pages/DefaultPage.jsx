@@ -4,20 +4,20 @@ import MenuSide from "../components/MenuSide";
 import AppBarDefault from "../components/AppBarDefault";
 
 const DefaultPage = () => {
-  const theme = useTheme();
+    const theme = useTheme();
 
-  document.querySelector("body").style.backgroundColor =
-    theme?.palette?.background?.secondary ?? "";
+    document.querySelector("body").style.backgroundColor =
+        theme?.palette?.background?.secondary ?? "";
 
-  return (
-    <Box sx={{ display: "flex", flexDirection: "row" }}>
-      <MenuSide />
-      <Box sx={{ display: "grid", width: "100%" }}>
-        <AppBarDefault/>
-        <Outlet />
-      </Box>
-    </Box>
-  );
+    return (
+        <Box sx={{ display: "flex", flexDirection: "row", width: "100%", height: "100%" }}>
+            <MenuSide />
+            <Box sx={{ display: "column", width: "100%", height: "100%" }}>
+                <AppBarDefault/>
+                <Outlet />
+            </Box>
+        </Box>
+    );
 };
 
 export default DefaultPage;

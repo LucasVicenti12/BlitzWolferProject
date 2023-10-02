@@ -99,8 +99,6 @@ const MenuSide = () => {
       : true
   );
 
-  //   const appBarContext = useAppBarContext();
-
   useEffect(() => {
     localStorage.setItem("drawerOpen", open);
     for (let path of MenuModules) {
